@@ -37,39 +37,29 @@
           };
         }
 
-        this.watchId = this.watchGPS(function(position) {
+				if (!("geolocation" in navigator)) {
+					error({
+	          code: 0,
+	          message: 'Geolocation is not supported by your browser'
+	        });
+	        return;
+	      }
+
+        // Get position once
+        navigator.geolocation.getPosition(function(position) {
           this.crd = position.coords;
-          this.updatePosition();
-        }.bind(this));
-
-      },
-
-      watchGPS: function(success, error) {
-
-        if (typeof(error) == 'undefined')
-          error = function(err) {
-            console.warn('ERROR(' + err.code + '): ' + err.message);
-          };
-
-        if (!("geolocation" in navigator)) {
-          error({
-            code: 0,
-            message: 'Geolocation is not supported by your browser'
-          });
-          return;
-        }
-
-        return navigator.geolocation.watchPosition(success, error, {
+          this.updatePosition()
+       	}, function(err) {
+          console.warn('ERROR(' + err.code + '): ' + err.message);
+        }, {
           enableHighAccuracy: true,
           maximumAge: 0,
           timeout: 27000
         });
-      },
+      }
 
       updatePosition: function() {
-
         if (this.crd.accuracy > this.data.accuracy) return;
-
         if (!this.zeroCrd) this.zeroCrd = this.crd;
 
         var p = this.el.getAttribute('position');
@@ -94,7 +84,6 @@
         );
 
         this.el.setAttribute('position', p);
-
       },
 
       calcMeters: function(src, dest) {
@@ -319,10 +308,9 @@
         var p = {
           x: 0,
           y: 0,
-          z: 0
+          z: 10
         };
 
-/*
         p.x = this.cameraGpsPosition.calcMeters(
           this.cameraGpsPosition.zeroCrd, {
             longitude: this.data.longitude,
@@ -332,7 +320,6 @@
           this.data.longitude > this.cameraGpsPosition.zeroCrd.longitude ?
           1 : -1
         );
-*/
 
         /**
         p.z = this.cameraGpsPosition.calcMeters(
