@@ -48,15 +48,15 @@
         // Get position once
         navigator.geolocation.getPosition(function(position) {
           this.crd = position.coords;
-          this.updatePosition()
+          this.updatePosition();
        	}, function(err) {
-          console.warn('ERROR(' + err.code + '): ' + err.message);
+          	console.warn('ERROR(' + err.code + '): ' + err.message);
         }, {
           enableHighAccuracy: true,
           maximumAge: 0,
           timeout: 27000
         });
-      }
+     	}
 
       updatePosition: function() {
         if (this.crd.accuracy > this.data.accuracy) return;
@@ -73,6 +73,7 @@
           this.crd.longitude > this.zeroCrd.longitude ?
           1 : -1
         );
+
         p.z = this.calcMeters(
           this.zeroCrd, {
             longitude: this.zeroCrd.longitude,
