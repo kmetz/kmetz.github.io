@@ -111,7 +111,6 @@
       lastTimestamp: 0,
       heading: null,
 
-
       schema: {
         fixTime: {
           type: 'int',
@@ -124,11 +123,9 @@
       },
 
       init: function() {
-
         if (typeof(this.el.components['look-controls']) == 'undefined') return;
 
         this.lookControls = this.el.components['look-controls'];
-
         this.handlerOrientation = this.handlerOrientation.bind(this);
 
         if (this.data.orientationEvent == 'auto') {
