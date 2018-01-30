@@ -40,13 +40,13 @@
         navigator.geolocation.getCurrentPosition(function(position) {
           this.crd = position.coords;
           this.updatePosition();
-       	}, function(err) {
+       	}.bind(this), function(err) {
            console.warn('ERROR(' + err.code + '): ' + err.message);
         }, {
           enableHighAccuracy: true,
           maximumAge: 0,
           timeout: 27000
-        }.bind(this)};
+        }};
       },
 
       updatePosition: function() {
