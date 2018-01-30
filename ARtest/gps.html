@@ -40,15 +40,15 @@
         // Get position once
         navigator.geolocation.getCurrentPosition(function(position) {
           this.crd = position.coords;
-          this.updatePosition();
+          this.updatePosition()
        	}, function(err) {
-          	console.warn('ERROR(' + err.code + '): ' + err.message);
+           console.warn('ERROR(' + err.code + '): ' + err.message);
         }, {
           enableHighAccuracy: true,
           maximumAge: 0,
           timeout: 27000
         });
-     	},
+      },
 
       updatePosition: function() {
         if (this.crd.accuracy > this.data.accuracy) return;
