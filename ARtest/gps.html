@@ -37,16 +37,8 @@
           };
         }
 
-				if (!("geolocation" in navigator)) {
-					error({
-	          code: 0,
-	          message: 'Geolocation is not supported by your browser'
-	        });
-	        return;
-	      }
-
         // Get position once
-        navigator.geolocation.getPosition(function(position) {
+        navigator.geolocation.getCurrentPosition(function(position) {
           this.crd = position.coords;
           this.updatePosition();
        	}, function(err) {
